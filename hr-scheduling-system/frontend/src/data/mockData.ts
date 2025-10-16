@@ -208,6 +208,294 @@ export const mockEmployees: Employee[] = [
     email: 'wushi@company.com',
     phone: '138-0000-0008',
     hireDate: '2023-02-28'
+  },
+  {
+    id: 'emp009',
+    name: '郑十一',
+    role: '安全员',
+    department: '安全部',
+    skills: ['安全监督', '风险评估', '应急处理'],
+    avatar: '🦺',
+    timeline: [],
+    isAvailable: true,
+    region: 'north',
+    email: 'zhengshiyi@company.com',
+    phone: '138-0000-0009',
+    hireDate: '2022-09-15'
+  },
+  {
+    id: 'emp010',
+    name: '冯十二',
+    role: '质检员',
+    department: '质量部',
+    skills: ['质量检测', '标准制定', '问题分析'],
+    avatar: '🔍',
+    timeline: [
+      {
+        id: 'timeline004',
+        projectId: 'proj004',
+        projectName: '住宅小区景观',
+        startDate: '2024-02-10',
+        endDate: '2024-03-10',
+        assignmentType: 'dispatched',
+        duration: 29
+      }
+    ],
+    isAvailable: false,
+    region: 'north',
+    email: 'fengshier@company.com',
+    phone: '138-0000-0010',
+    hireDate: '2021-11-20'
+  },
+  {
+    id: 'emp011',
+    name: '陈十三',
+    role: '材料员',
+    department: '采购部',
+    skills: ['材料采购', '库存管理', '供应商管理'],
+    avatar: '📦',
+    timeline: [],
+    isAvailable: true,
+    region: 'west',
+    email: 'chenshisan@company.com',
+    phone: '138-0000-0011',
+    hireDate: '2020-07-08'
+  },
+  {
+    id: 'emp012',
+    name: '褚十四',
+    role: '测量员',
+    department: '技术部',
+    skills: ['地形测量', 'GPS定位', '数据分析'],
+    avatar: '📐',
+    timeline: [],
+    isAvailable: true,
+    region: 'west',
+    email: 'chushisi@company.com',
+    phone: '138-0000-0012',
+    hireDate: '2023-01-12'
+  },
+  {
+    id: 'emp013',
+    name: '卫十五',
+    role: '环保专员',
+    department: '环保部',
+    skills: ['环境监测', '污染治理', '环保法规'],
+    avatar: '🌍',
+    timeline: [
+      {
+        id: 'timeline005',
+        projectId: 'proj005',
+        projectName: '工业园区绿化',
+        startDate: '2024-01-25',
+        endDate: '2024-02-25',
+        assignmentType: 'dispatched',
+        duration: 31
+      }
+    ],
+    isAvailable: false,
+    region: 'southwest',
+    email: 'weishiwu@company.com',
+    phone: '138-0000-0013',
+    hireDate: '2022-03-18'
+  },
+  {
+    id: 'emp014',
+    name: '蒋十六',
+    role: '财务专员',
+    department: '财务部',
+    skills: ['成本核算', '预算管理', '财务分析'],
+    avatar: '💰',
+    timeline: [],
+    isAvailable: true,
+    region: 'central',
+    email: 'jiangshiliu@company.com',
+    phone: '138-0000-0014',
+    hireDate: '2019-05-22'
+  },
+  {
+    id: 'emp015',
+    name: '沈十七',
+    role: '人事专员',
+    department: '人事部',
+    skills: ['招聘管理', '培训组织', '绩效考核'],
+    avatar: '👥',
+    timeline: [],
+    isAvailable: true,
+    region: 'east',
+    email: 'shenshiqi@company.com',
+    phone: '138-0000-0015',
+    hireDate: '2021-08-30'
+  },
+  {
+    id: 'emp016',
+    name: '韩十八',
+    role: '技术员',
+    department: '技术部',
+    skills: ['技术支持', '设备调试', '故障排除'],
+    avatar: '🔧',
+    timeline: [],
+    isAvailable: true,
+    region: 'south',
+    email: 'hanshiba@company.com',
+    phone: '138-0000-0016',
+    hireDate: '2023-04-15'
+  },
+  {
+    id: 'emp017',
+    name: '杨十九',
+    role: '驾驶员',
+    department: '后勤部',
+    skills: ['货车驾驶', '路线规划', '车辆维护'],
+    avatar: '🚛',
+    timeline: [
+      {
+        id: 'timeline006',
+        projectId: 'proj001',
+        projectName: '中央公园改造',
+        startDate: '2024-02-05',
+        endDate: '2024-03-05',
+        assignmentType: 'dispatched',
+        duration: 29
+      }
+    ],
+    isAvailable: false,
+    region: 'north',
+    email: 'yangshijiu@company.com',
+    phone: '138-0000-0017',
+    hireDate: '2020-12-10'
+  },
+  {
+    id: 'emp018',
+    name: '朱二十',
+    role: '保洁员',
+    department: '后勤部',
+    skills: ['环境清洁', '垃圾分类', '卫生维护'],
+    avatar: '🧹',
+    timeline: [],
+    isAvailable: true,
+    region: 'west',
+    email: 'zhuershí@company.com',
+    phone: '138-0000-0018',
+    hireDate: '2022-06-25'
+  },
+  {
+    id: 'emp019',
+    name: '秦二一',
+    role: '电工',
+    department: '工程部',
+    skills: ['电路安装', '电气维修', '照明设计'],
+    avatar: '⚡',
+    timeline: [],
+    isAvailable: true,
+    region: 'central',
+    email: 'qinershiyi@company.com',
+    phone: '138-0000-0019',
+    hireDate: '2021-02-14'
+  },
+  {
+    id: 'emp020',
+    name: '尤二二',
+    role: '水工',
+    department: '工程部',
+    skills: ['管道安装', '水系统维护', '喷灌设计'],
+    avatar: '💧',
+    timeline: [
+      {
+        id: 'timeline007',
+        projectId: 'proj002',
+        projectName: '滨江绿化带',
+        startDate: '2024-01-30',
+        endDate: '2024-02-28',
+        assignmentType: 'dispatched',
+        duration: 29
+      }
+    ],
+    isAvailable: false,
+    region: 'south',
+    email: 'youerer@company.com',
+    phone: '138-0000-0020',
+    hireDate: '2020-10-05'
+  },
+  {
+    id: 'emp021',
+    name: '许二三',
+    role: '园林工程师',
+    department: '设计部',
+    skills: ['园林规划', '植物配置', '景观效果图'],
+    avatar: '🌳',
+    timeline: [],
+    isAvailable: true,
+    region: 'east',
+    email: 'xuershisan@company.com',
+    phone: '138-0000-0021',
+    hireDate: '2019-09-12'
+  },
+  {
+    id: 'emp022',
+    name: '何二四',
+    role: '苗木技师',
+    department: '园艺部',
+    skills: ['苗木培育', '嫁接技术', '病虫害防治'],
+    avatar: '🌱',
+    timeline: [],
+    isAvailable: true,
+    region: 'southwest',
+    email: 'heershisi@company.com',
+    phone: '138-0000-0022',
+    hireDate: '2022-12-08'
+  },
+  {
+    id: 'emp023',
+    name: '吕二五',
+    role: '土壤专家',
+    department: '技术部',
+    skills: ['土壤检测', '土壤改良', '肥料配制'],
+    avatar: '🌾',
+    timeline: [
+      {
+        id: 'timeline008',
+        projectId: 'proj003',
+        projectName: '商业广场绿化',
+        startDate: '2024-02-15',
+        endDate: '2024-03-15',
+        assignmentType: 'dispatched',
+        duration: 29
+      }
+    ],
+    isAvailable: false,
+    region: 'west',
+    email: 'lvershiwu@company.com',
+    phone: '138-0000-0023',
+    hireDate: '2021-07-20'
+  },
+  {
+    id: 'emp024',
+    name: '施二六',
+    role: '石材工',
+    department: '施工部',
+    skills: ['石材切割', '石材铺装', '雕刻技艺'],
+    avatar: '🪨',
+    timeline: [],
+    isAvailable: true,
+    region: 'north',
+    email: 'shiershiliu@company.com',
+    phone: '138-0000-0024',
+    hireDate: '2020-04-18'
+  },
+  {
+    id: 'emp025',
+    name: '张二七',
+    role: '木工',
+    department: '施工部',
+    skills: ['木结构制作', '防腐处理', '园林小品'],
+    avatar: '🪵',
+    timeline: [],
+    isAvailable: true,
+    region: 'central',
+    email: 'zhangershiqi@company.com',
+    phone: '138-0000-0025',
+    hireDate: '2023-03-10'
   }
 ];
 

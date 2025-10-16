@@ -44,7 +44,7 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
   const filteredEmployees = useMemo(() => {
     return employees.filter(employee => {
       // 区域过滤
-      if (selectedRegion !== 'national' && employee.region !== selectedRegion) {
+      if (selectedRegion !== 'nationwide' && employee.region !== selectedRegion) {
         return false;
       }
 
@@ -96,6 +96,15 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
   const getEmployeeStatusText = (employee: Employee) => {
     if (employee.isAvailable) return '可用';
     return '忙碌';
+  };
+
+  // 处理横向滚动
+  const handleWheel = (e: React.WheelEvent) => {
+    const container = e.currentTarget as HTMLElement;
+    // 阻止默认的垂直滚动行为
+    e.preventDefault();
+    // 将垂直滚动转换为横向滚动
+    container.scrollLeft += e.deltaY;
   };
 
   return (
@@ -174,7 +183,10 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
             </div>
           </div>
         ) : (
-          <div className="employee-cards-scroll overflow-x-auto h-full">
+          <div 
+            className="employee-cards-scroll overflow-x-auto h-full"
+            onWheel={handleWheel}
+          >
             <div className="flex space-x-4 h-full pb-2">
               {filteredEmployees.map((employee) => (
                 <Card

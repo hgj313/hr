@@ -55,6 +55,15 @@ const RegionDashboard: React.FC = () => {
     'north-china': '华北'
   };
 
+  // 区域代码映射 - 将URL中的regionId转换为员工数据中的region字段
+  const regionCodeMapping: Record<string, string> = {
+    'nationwide': 'nationwide',
+    'central-china': 'central',
+    'south-china': 'south',
+    'east-china': 'east',
+    'north-china': 'north'
+  };
+
   // 加载Mock数据
   useEffect(() => {
     // 根据区域过滤项目
@@ -189,7 +198,7 @@ const RegionDashboard: React.FC = () => {
           <div className="resource-pool-content">
              <EmployeeResourcePool
                employees={getCurrentRegionEmployees()}
-               selectedRegion={regionId || 'nationwide'}
+               selectedRegion={regionCodeMapping[regionId || 'nationwide'] || 'nationwide'}
                timeFilters={secondaryTimeRanges}
                onEmployeeSelect={handleEmployeeSelect}
                onEmployeeDragStart={handleEmployeeDragStart}
