@@ -27,16 +27,16 @@ const RegionDashboard: React.FC = () => {
   const { regionId } = useParams<{ regionId: string }>();
   const navigate = useNavigate();
   
+  // 新增状态 - 移到前面
+  const [primaryTimeRange, setPrimaryTimeRange] = useState<[string, string]>(['2024-01-01', '2024-06-30']);
+  const [primaryPrecision, setPrimaryPrecision] = useState<'day' | 'week' | 'month' | 'quarter'>('month');
+  
   const [selectedTimeRange, setSelectedTimeRange] = useState({
     start: '2024-01-01',
     end: '2024-12-31'
   });
   const [timePrecision, setTimePrecision] = useState<TimePrecision>('month');
   const [projects, setProjects] = useState<Project[]>([]);
-  
-  // 新增状态
-  const [primaryTimeRange, setPrimaryTimeRange] = useState<[string, string]>(['2024-01-01', '2024-06-30']);
-  const [primaryPrecision, setPrimaryPrecision] = useState<'day' | 'week' | 'month' | 'quarter'>('month');
   const [secondaryTimeRanges, setSecondaryTimeRanges] = useState<Array<{
     id: string;
     start: string;
@@ -45,6 +45,15 @@ const RegionDashboard: React.FC = () => {
     label: string;
   }>>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+  
+  // 同步主时间选择器的状态到项目时间轴
+  useEffect(() => {
+    setSelectedTimeRange({
+      start: primaryTimeRange[0],
+      end: primaryTimeRange[1]
+    });
+    setTimePrecision(primaryPrecision as TimePrecision);
+  }, [primaryTimeRange, primaryPrecision]);
 
   // 区域名称映射
   const regionNames: Record<string, string> = {

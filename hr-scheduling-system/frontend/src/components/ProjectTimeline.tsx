@@ -1,16 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Project as BaseProject } from '../types';
 import './ProjectTimeline.css';
 
-interface Project {
-  id: string;
-  name: string;
-  type: string;
-  startDate: string;
-  endDate: string;
-  status: 'planning' | 'ongoing' | 'completed' | 'paused';
-  priority: 'high' | 'medium' | 'low';
-  employeeCount: number;
-  progress: number;
+interface ProjectTimelineProject extends BaseProject {
+  type?: string;
+  startDate?: string;
+  endDate?: string;
+  employeeCount?: number;
+  progress?: number;
 }
 
 interface TimeRange {
@@ -19,14 +16,14 @@ interface TimeRange {
 }
 
 interface ProjectTimelineProps {
-  projects: Project[];
+  projects: ProjectTimelineProject[];
   timeRange: TimeRange;
   precision: 'day' | 'week' | 'month' | 'quarter' | 'year';
   onProjectDoubleClick: (projectId: string) => void;
   onEmployeeDrop?: (projectId: string, employeeData: any) => void;
 }
 
-interface TimelineProject extends Project {
+interface TimelineProject extends ProjectTimelineProject {
   startPos: number;
   width: number;
   row: number;
@@ -39,7 +36,52 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
   onProjectDoubleClick,
   onEmployeeDrop
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const [dragOverProject, setDragOverProject] = useState<string | null>(null);
+
+  // 计算当前时间在时间轴上的位置
+  const currentTimePosition = useMemo(() => {
+    const now = new Date();
+    const timelineStart = new Date(timeRange.start);
+    const timelineEnd = new Date(timeRange.end);
+    
+    // 检查当前时间是否在时间轴范围内
+    if (now < timelineStart || now > timelineEnd) {
+      return null; // 当前时间不在显示范围内
+    }
+    
+    const totalDuration = timelineEnd.getTime() - timelineStart.getTime();
+    const currentOffset = now.getTime() - timelineStart.getTime();
+    const position = (currentOffset / totalDuration) * 100;
+    
+    return Math.max(0, Math.min(100, position)); // 确保在0-100%范围内
+  }, [timeRange]);
+
+  // 处理横向滚动 - 只在悬停状态下生效
+  const handleWheel = (e: React.WheelEvent) => {
+    if (!isHovered) return; // 只在悬停状态下处理滚轮事件
+    
+    // 找到可滚动的容器
+    const scrollContainer = e.currentTarget.querySelector('.timeline-scroll-container') as HTMLElement;
+    if (scrollContainer) {
+      // 阻止默认的垂直滚动行为和事件冒泡
+      e.preventDefault();
+      e.stopPropagation();
+      // 将垂直滚动转换为横向滚动
+      scrollContainer.scrollLeft += e.deltaY;
+    }
+  };
+
+  // 鼠标进入项目时间轴区域
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  // 鼠标离开项目时间轴区域
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+  
   // 生成时间刻度
   const timeScale = useMemo(() => {
     const start = new Date(timeRange.start);
@@ -93,15 +135,15 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
     
     // 过滤在时间范围内的项目
     const visibleProjects = projects.filter(project => {
-      const projectStart = new Date(project.startDate);
-      const projectEnd = new Date(project.endDate);
+      const projectStart = new Date(project.startDate || project.start_date || '');
+      const projectEnd = new Date(project.endDate || project.end_date || '');
       return projectStart <= timelineEnd && projectEnd >= timelineStart;
     });
     
     // 计算每个项目的位置和宽度
     const projectsWithPosition = visibleProjects.map(project => {
-      const projectStart = new Date(project.startDate);
-      const projectEnd = new Date(project.endDate);
+      const projectStart = new Date(project.startDate || project.start_date || '');
+      const projectEnd = new Date(project.endDate || project.end_date || '');
       
       // 确保项目时间在时间轴范围内
       const clampedStart = new Date(Math.max(projectStart.getTime(), timelineStart.getTime()));
@@ -178,29 +220,38 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
   };
 
   return (
-    <div className="project-timeline">
-      {/* 时间刻度 */}
-      <div className="timeline-scale">
-        {timeScale.map((scale, index) => (
-          <div 
-            key={index}
-            className="scale-item"
-            style={{ 
-              left: `${(index / (timeScale.length - 1)) * 100}%`,
-              width: `${100 / (timeScale.length - 1)}%`
-            }}
-          >
-            <div className="scale-line"></div>
-            <div className="scale-label">{scale.label}</div>
-          </div>
-        ))}
-      </div>
-      
-      {/* 项目排布区域 */}
-      <div 
-        className="timeline-content"
-        style={{ height: `${Math.max(maxRows * 60 + 40, 200)}px` }}
-      >
+    <div 
+      className={`project-timeline transition-all duration-300 ${
+        isHovered ? 'bg-blue-50 border-2 border-blue-200 shadow-lg' : 'bg-transparent'
+      }`}
+      onWheel={handleWheel}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* 统一的滚动容器 */}
+      <div className={`timeline-scroll-container precision-${precision}`}>
+        {/* 时间刻度 */}
+        <div className="timeline-scale">
+          {timeScale.map((scale, index) => (
+            <div 
+              key={index}
+              className="scale-item"
+              style={{ 
+                left: `${(index / (timeScale.length - 1)) * 100}%`,
+                width: `${100 / (timeScale.length - 1)}%`
+              }}
+            >
+              <div className="scale-line"></div>
+              <div className="scale-label">{scale.label}</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* 项目排布区域 */}
+        <div 
+          className="timeline-content"
+          style={{ height: `${Math.max(maxRows * 60 + 40, 200)}px` }}
+        >
         {arrangedProjects.map((project) => (
           <div
             key={project.id}
@@ -230,14 +281,14 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
                 onEmployeeDrop(project.id, JSON.parse(employeeData));
               }
             }}
-            title={`${project.name} (${project.startDate} ~ ${project.endDate})`}
+            title={`${project.name} (${project.startDate || project.start_date || ''} ~ ${project.endDate || project.end_date || ''})`}
           >
             <div className="project-content">
               <div className="project-name">{project.name}</div>
               <div className="project-info">
-                <span className="project-type">{project.type}</span>
-                <span className="project-employees">{project.employeeCount}人</span>
-                <span className="project-progress">{project.progress}%</span>
+                <span className="project-type">{project.type || '项目'}</span>
+                <span className="project-employees">{project.employeeCount || 0}人</span>
+                <span className="project-progress">{project.progress || 0}%</span>
               </div>
             </div>
             
@@ -245,7 +296,7 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
             <div className="project-progress-bar">
               <div 
                 className="progress-fill"
-                style={{ width: `${project.progress}%` }}
+                style={{ width: `${project.progress || 0}%` }}
               ></div>
             </div>
           </div>
@@ -257,6 +308,16 @@ const ProjectTimeline: React.FC<ProjectTimelineProps> = ({
             <p>当前时间范围内没有项目</p>
           </div>
         )}
+        
+        {/* 当前时间指针 */}
+        {currentTimePosition !== null && (
+          <div 
+            className="current-time-pointer"
+            style={{ left: `${currentTimePosition}%` }}
+            title={`当前时间: ${new Date().toLocaleString('zh-CN')}`}
+          />
+        )}
+        </div>
       </div>
     </div>
   );

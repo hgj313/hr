@@ -3,6 +3,43 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+/* 悬停状态样式 */
+.project-timeline:hover {
+  background: #f0f9ff;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+/* 滚轮控制提示 */
+.project-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>') no-repeat center;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  color: #3b82f6;
+}
+
+.project-timeline:hover::before {
+  opacity: 0.6;
+}
+
+/* 统一的滚动容器 */
+.timeline-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 /* 时间刻度 */
@@ -12,6 +49,35 @@
   background: #f8f9fa;
   border-bottom: 2px solid #e2e8f0;
   display: flex;
+  overflow: visible;
+  min-width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* 动态宽度调整 */
+.timeline-scroll-container.precision-day .timeline-scale,
+.timeline-scroll-container.precision-day .timeline-content {
+  min-width: 150%;
+}
+
+.timeline-scroll-container.precision-week .timeline-scale,
+.timeline-scroll-container.precision-week .timeline-content {
+  min-width: 120%;
+}
+
+.timeline-scroll-container.precision-month .timeline-scale,
+.timeline-scroll-container.precision-month .timeline-content {
+  min-width: 100%;
+}
+
+.timeline-scroll-container.precision-quarter .timeline-scale,
+.timeline-scroll-container.precision-quarter .timeline-content {
+  min-width: 80%;
+}
+
+.timeline-scroll-container.precision-year .timeline-scale,
+.timeline-scroll-container.precision-year .timeline-content {
+  min-width: 60%;
 }
 
 .scale-item {
@@ -21,6 +87,30 @@
   align-items: center;
   justify-content: center;
   border-right: 1px solid #e2e8f0;
+  min-width: 60px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+/* 根据精度调整刻度项宽度 */
+.timeline-scale.precision-day .scale-item {
+  min-width: 80px;
+}
+
+.timeline-scale.precision-week .scale-item {
+  min-width: 100px;
+}
+
+.timeline-scale.precision-month .scale-item {
+  min-width: 120px;
+}
+
+.timeline-scale.precision-quarter .scale-item {
+  min-width: 150px;
+}
+
+.timeline-scale.precision-year .scale-item {
+  min-width: 200px;
 }
 
 .scale-item:last-child {
@@ -42,6 +132,10 @@
   font-weight: 500;
   text-align: center;
   padding: 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 /* 时间轴内容区域 */
@@ -49,7 +143,39 @@
   position: relative;
   min-height: 200px;
   background: #fafafa;
-  overflow: hidden;
+  overflow: visible;
+  min-width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* 自定义滚动条样式 */
+.timeline-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 悬停时滚动条更明显 */
+.project-timeline:hover .timeline-scroll-container::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+}
+
+.project-timeline:hover .timeline-scale::-webkit-scrollbar-thumb:hover,
+.project-timeline:hover .timeline-content::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
 }
 
 /* 项目条 */
@@ -257,6 +383,63 @@
   height: 100%;
   background: #38a169;
   z-index: 3;
+}
+
+/* 当前时间指针 */
+.current-time-pointer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e53e3e;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(229, 62, 62, 0.5);
+}
+
+.current-time-pointer::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -6px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #e53e3e;
+  z-index: 101;
+}
+
+.current-time-pointer::after {
+  content: '当前时间';
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  background: #e53e3e;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 102;
+}
+
+/* 当前时间指针动画 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 4px rgba(229, 62, 62, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(229, 62, 62, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 4px rgba(229, 62, 62, 0.5);
+  }
+}
+
+.current-time-pointer {
+  animation: pulse 2s infinite;
 }
 
 /* 拖拽视觉反馈样式 */

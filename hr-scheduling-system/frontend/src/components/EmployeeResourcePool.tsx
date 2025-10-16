@@ -32,6 +32,7 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
   const [skillFilter, setSkillFilter] = useState<string>('all');
   const [selectedEmployeeForDetail, setSelectedEmployeeForDetail] = useState<Employee | null>(null);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // 获取所有技能列表
   const allSkills = useMemo(() => {
@@ -98,13 +99,26 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
     return '忙碌';
   };
 
-  // 处理横向滚动
+  // 处理横向滚动 - 只在悬停状态下生效
   const handleWheel = (e: React.WheelEvent) => {
+    if (!isHovered) return; // 只在悬停状态下处理滚轮事件
+    
     const container = e.currentTarget as HTMLElement;
-    // 阻止默认的垂直滚动行为
+    // 阻止默认的垂直滚动行为和事件冒泡
     e.preventDefault();
+    e.stopPropagation();
     // 将垂直滚动转换为横向滚动
     container.scrollLeft += e.deltaY;
+  };
+
+  // 鼠标进入人力资源池区域
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  // 鼠标离开人力资源池区域
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -184,8 +198,12 @@ const EmployeeResourcePool: React.FC<EmployeeResourcePoolProps> = ({
           </div>
         ) : (
           <div 
-            className="employee-cards-scroll overflow-x-auto h-full"
+            className={`employee-cards-scroll h-full transition-all duration-300 ${
+              isHovered ? 'bg-blue-50 border-2 border-blue-200 shadow-lg' : 'bg-transparent'
+            }`}
             onWheel={handleWheel}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <div className="flex space-x-4 h-full pb-2">
               {filteredEmployees.map((employee) => (
