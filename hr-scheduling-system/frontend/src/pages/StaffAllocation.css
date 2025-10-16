@@ -1,0 +1,121 @@
+/* 人员调配页面样式 */
+.staff-allocation-layout {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.staff-allocation-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-title {
+  color: white !important;
+  margin: 0 !important;
+  font-weight: 600;
+}
+
+.staff-allocation-content {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 时间选择器区域 */
+.time-selector-card {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.time-selectors {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.main-time-selector {
+  flex: 1;
+  min-width: 300px;
+}
+
+.sub-time-selector {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* 主要工作区域 */
+.main-workspace {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 280px);
+  min-height: 600px;
+}
+
+.resource-pool-container {
+  flex: 0 0 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.project-pool-container {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .main-workspace {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .resource-pool-container {
+    flex: none;
+    height: 300px;
+  }
+  
+  .project-pool-container {
+    flex: none;
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .staff-allocation-content {
+    padding: 16px;
+  }
+  
+  .time-selectors {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .main-time-selector,
+  .sub-time-selector {
+    min-width: 100%;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}

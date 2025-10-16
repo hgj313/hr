@@ -1,0 +1,123 @@
+/* 副时间选择器样式 */
+.sub-time-selector {
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.sub-time-selector:hover {
+  border-color: #52c41a;
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.1);
+}
+
+.selector-header {
+  margin-bottom: 16px;
+}
+
+.selector-icon {
+  color: #52c41a;
+  font-size: 18px;
+}
+
+.selector-title {
+  margin: 0 !important;
+  color: #262626;
+  font-weight: 600;
+}
+
+.selector-content {
+  width: 100%;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #595959;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.date-range-picker {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.date-range-picker .ant-picker-input input {
+  font-weight: 500;
+}
+
+.date-range-picker.ant-picker-focused {
+  border-color: #52c41a;
+  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.2);
+}
+
+.date-range-picker .ant-picker-separator {
+  color: #52c41a;
+  font-weight: bold;
+}
+
+/* 快速选择按钮 */
+.quick-select-section {
+  margin-top: 12px;
+}
+
+.quick-btn {
+  border-radius: 6px;
+  border-color: #d9f7be;
+  color: #389e0d;
+  background: #f6ffed;
+  transition: all 0.3s ease;
+}
+
+.quick-btn:hover {
+  border-color: #52c41a;
+  color: #52c41a;
+  background: #f6ffed;
+  transform: translateY(-1px);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+}
+
+/* 筛选信息 */
+.filter-info {
+  background: rgba(82, 196, 26, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.info-text {
+  color: #389e0d;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* 警告标签样式 */
+.ant-tag.ant-tag-warning {
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sub-time-selector {
+    padding: 16px;
+  }
+  
+  .selector-header {
+    margin-bottom: 12px;
+  }
+  
+  .quick-select-section .ant-space {
+    width: 100%;
+  }
+  
+  .quick-btn {
+    flex: 1;
+  }
+}

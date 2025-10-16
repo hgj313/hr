@@ -1,0 +1,114 @@
+.time-range-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 300px;
+}
+
+.date-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date-input-group label {
+  font-size: 0.875rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.date-input {
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #2d3748;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.date-separator {
+  font-size: 1.2rem;
+  color: #a0aec0;
+  margin: 0 0.5rem;
+  align-self: center;
+}
+
+.quick-select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.quick-label {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.quick-btn {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.375rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.quick-btn:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  color: #2d3748;
+}
+
+.quick-btn:active {
+  background: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .time-range-selector {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .date-inputs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .date-separator {
+    align-self: center;
+    margin: 0;
+  }
+  
+  .quick-select {
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  
+  .quick-btn {
+    flex: 1;
+    min-width: 60px;
+  }
+}

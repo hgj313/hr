@@ -1,0 +1,86 @@
+/* 主时间选择器样式 */
+.main-time-selector {
+  background: #fafbfc;
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.main-time-selector:hover {
+  border-color: #1890ff;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+}
+
+.selector-header {
+  margin-bottom: 16px;
+}
+
+.selector-icon {
+  color: #1890ff;
+  font-size: 18px;
+}
+
+.selector-title {
+  margin: 0 !important;
+  color: #262626;
+  font-weight: 600;
+}
+
+.selector-content {
+  width: 100%;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #595959;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.date-range-picker {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.date-range-picker .ant-picker-input input {
+  font-weight: 500;
+}
+
+.granularity-select .ant-select-selector {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+.granularity-select:hover .ant-select-selector {
+  border-color: #40a9ff;
+}
+
+.granularity-select.ant-select-focused .ant-select-selector {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 日期选择器样式优化 */
+.date-range-picker.ant-picker-focused {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.date-range-picker .ant-picker-separator {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-time-selector {
+    padding: 16px;
+  }
+  
+  .selector-header {
+    margin-bottom: 12px;
+  }
+}

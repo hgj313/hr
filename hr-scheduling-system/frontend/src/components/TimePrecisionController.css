@@ -1,0 +1,63 @@
+.time-precision-controller {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.precision-label {
+  font-size: 0.9rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.precision-options {
+  display: flex;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 0.25rem;
+  gap: 0.25rem;
+}
+
+.precision-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.precision-btn:hover {
+  background: #e2e8f0;
+  color: #2d3748;
+}
+
+.precision-btn.active {
+  background: #667eea;
+  color: white;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.precision-btn.active:hover {
+  background: #5a67d8;
+}
+
+@media (max-width: 768px) {
+  .time-precision-controller {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .precision-options {
+    flex-wrap: wrap;
+  }
+  
+  .precision-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
